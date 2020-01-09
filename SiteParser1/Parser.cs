@@ -14,13 +14,17 @@ namespace SiteParser1
         /// </summary>
         /// <param name="webPage"></param>
         /// <returns></returns>
-        public async Task<string> GetHTMLCode(string webPage)
+        public async Task<string> GetHTMLCodeAsync(string webPage)
         {
-            return await Task.Run(() => ParseSite(webPage));
+            return await Task.Run(() => GetHTMLCode(webPage));
         }
 
-
-        private string ParseSite(string webPage)
+        /// <summary>
+        /// Считывает html код со страницы
+        /// </summary>
+        /// <param name="webPage"></param>
+        /// <returns></returns>
+        public string GetHTMLCode(string webPage)
         {
             string data = "";
             //запрос на веб страницу
@@ -39,11 +43,11 @@ namespace SiteParser1
             //возвращает ответ с сервера
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            if(response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.OK)
             {
                 Stream reciveStream = response.GetResponseStream();
                 StreamReader sr = null;
-                if(response.CharacterSet == null)
+                if (response.CharacterSet == null)
                 {
                     sr = new StreamReader(reciveStream);
                 }

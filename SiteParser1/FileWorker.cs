@@ -28,12 +28,12 @@ namespace SiteParser1
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public static async Task<string> ReadFromFile(string filename)
+        public static async Task<string> ReadFromFileAsync(string filename)
         {
-            return await Task.Run(() => Read(filename));
+            return await Task.Run(() => ReadFromFile(filename));
         }
 
-        private static string Read(string filename)
+        private static string ReadFromFile(string filename)
         {
             string path = Environment.CurrentDirectory;
 

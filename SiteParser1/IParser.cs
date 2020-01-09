@@ -7,6 +7,8 @@ namespace SiteParser1
 {
     interface IParser
     {
-        Task<string> GetHTMLCode(string webPage);
+        Task<string> GetHTMLCodeAsync(string webPage);
+
+        string GetHTMLCode(string webPage);
     }
 }
