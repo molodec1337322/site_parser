@@ -25,10 +25,9 @@ namespace Parser
         /// <returns></returns>
         public string CleanData(string rawHTMLCode)
         {
-            string regexPattern = @"<[a-z A-Z 0-9]>(.*?)</[a-z A-Z 0-9]>";
-            string target = "";
-            Regex regex = new Regex(regexPattern);
-            string result = regex.Replace(rawHTMLCode, target);
+            string regexPattern = @"<[^>]*>";
+            string target = String.Empty;
+            string result = Regex.Replace(rawHTMLCode, regexPattern, target);
             return result;
         }
     }
