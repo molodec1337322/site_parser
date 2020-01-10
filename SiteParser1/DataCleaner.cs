@@ -1,8 +1,11 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Parser
 {
@@ -25,10 +28,28 @@ namespace Parser
         /// <returns></returns>
         public string CleanData(string rawHTMLCode)
         {
-            string regexPattern = @"<[^>]*>";
-            string target = String.Empty;
-            string result = Regex.Replace(rawHTMLCode, regexPattern, target);
-            return result;
+            /*
+            string regexPatternHTML = @"<[^>]*>";
+            string regexPatternSpaces = @"\s+";
+            string targetHTML = String.Empty;
+            string targetSpaces = "\n";
+
+            string withoutHTML = Regex.Replace(rawHTMLCode, regexPatternHTML, targetHTML);
+            string result = Regex.Replace(withoutHTML, regexPatternSpaces, targetSpaces);
+            return withoutHTML;
+            */
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(rawHTMLCode);
+            var text = doc.DocumentNode.SelectNodes("//body//text()").Select(node => node.InnerText);
+            StringBuilder output = new StringBuilder();
+            foreach (string line in text)
+            {
+                output.AppendLine(line);
+            }
+            string onlyText = HttpUtility.HtmlDecode(output.ToString());
+
+            return onlyText;
         }
     }
 }
